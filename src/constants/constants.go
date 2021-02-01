@@ -1,0 +1,30 @@
+package constants
+
+// PartsOfSpeech todo - would like these to be shared across all orograms eventually
+var PartsOfSpeech map[string]string = map[string]string{
+	"noun":                 "noun",
+	"verb":                 "verb",
+	"adjective":            "adjective",
+	"noun 1":               "noun 1",
+	"noun 2":               "noun 2",
+	"adverb":               "adverb",
+	"pronoun":              "pronoun",
+	"numeral":              "numeral",
+	"proper noun":          "proper noun",
+	"letter":               "letter",
+	"conjunction":          "conjunction",
+	"interjection":         "interjection",
+	"preposition":          "preposition",
+	"determiner":           "determiner",
+	"declension":           "declension",
+	"article":              "article",
+	"contraction":          "contraction",
+	"prepositional phrase": "prepositional phrase",
+	"verb 1":               "verb 1",
+	"verb 2":               "verb 2",
+	"particle":             "particle",
+	"number":               "number",
+	"symbol":               "symbol",
+	"inflection":           "inflection",
+	"ordinal number":       "ordinal number",
+}
