@@ -29,7 +29,14 @@ func main() {
 	flagVals := getflags.GetFlags()
 	// get list of words from original word list file
 	wordList := word.GetWords(flagVals.Words)
-	definitions := definition.GetDefinitions(wordList, flagVals.Definitions)
+	var lemmas []*lemma.LemmasWrapper
+	for _, word := range wordList {
+		lemmaData := lemma.NewLemmasWrapper(word, flagVals.Lemmas)
+		lemmas = append(lemmas, lemmaData)
+	}
+	flatLemmas := lemma.GetFlatLemmaList(lemmas)
+	definitions := definition.GetDefinitions(*flatLemmas, flagVals.Definitions)
+
 	for _, word := range wordList {
 		// get lemmas from the lemmas directory
 		lemmaData := lemma.NewLemmasWrapper(word, flagVals.Lemmas)

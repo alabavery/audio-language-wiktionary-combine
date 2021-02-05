@@ -18,9 +18,9 @@ type DefinitionsWrapper struct {
 }
 
 // GetDefinitions instantiates and returns a DefinitionsWrapper pointer
-func GetDefinitions(wordList []string, definitionsDir string) map[string]*DefinitionsWrapper {
+func GetDefinitions(lemmaList []string, definitionsDir string) map[string]*DefinitionsWrapper {
 	m := map[string]*DefinitionsWrapper{}
-	for _, word := range wordList {
+	for _, word := range lemmaList {
 		def := DefinitionsWrapper{
 			Word:       word,
 			HasContent: false,

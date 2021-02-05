@@ -25,6 +25,17 @@ func NewLemmasWrapper(word string, lemmasDir string) *LemmasWrapper {
 	}
 }
 
+// GetFlatLemmaList translates a bunch of wrappers into a flat list
+func GetFlatLemmaList(wrappers []*LemmasWrapper) *[]string {
+	var lemmas []string
+	for _, wrapper := range wrappers {
+		for _, content := range wrapper.Content {
+			lemmas = append(lemmas, content.Lemmas...)
+		}
+	}
+	return &lemmas
+}
+
 func getFileContent(word string, lemmasDir string) ([]item, bool) {
 	var content []item
 	exists := util.GetJSONWhenFileMayNotExist(
