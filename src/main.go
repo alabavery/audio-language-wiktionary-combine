@@ -34,6 +34,6 @@ func main() {
 		// get lemmas from the lemmas directory
 		lemmaData := lemma.NewLemmasWrapper(word, flagVals.Lemmas)
 		o := output.GetOutputWrapper(lemmaData, definitions)
-		o.Save(flagVals.Target)
+		o.Save(flagVals.Target, flagVals.DryRun)
 	}
 }

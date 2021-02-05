@@ -67,11 +67,15 @@ func GetOutputWrapper(
 }
 
 // Save the Content of the output
-func (o *Wrapper) Save(targetDirectory string) {
+func (o *Wrapper) Save(targetDirectory string, dryRun bool) {
 	if o.HasContent {
 		out, err := json.Marshal(o.Content)
 		if err != nil {
 			panic("Could not marshal json")
+		}
+		if dryRun {
+			fmt.Printf("output: %v\n", o)
+			return
 		}
 		err = ioutil.WriteFile(fmt.Sprintf("%v/%v.json", targetDirectory, o.Word), out, 0644)
 		if err != nil {
