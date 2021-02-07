@@ -1,17 +1,15 @@
 package lemma
 
-import "audio-language/wiktionary/combine/util"
+import (
+	"audio-language/wiktionary/combine/util"
 
-type item struct {
-	PartOfSpeech string   `json:"part_of_speech"`
-	Lemmas       []string `json:"lemmas"`
-	Exists       bool     `json:"exists"`
-}
+	"github.com/ninetypercentlanguage/word-utils/lemma"
+)
 
 // LemmasWrapper wraps lemmas
 type LemmasWrapper struct {
 	Word       string
-	Content    []item
+	Content    lemma.Content
 	HasContent bool
 }
 
@@ -36,8 +34,8 @@ func GetFlatLemmaList(wrappers []*LemmasWrapper) *[]string {
 	return &lemmas
 }
 
-func getFileContent(word string, lemmasDir string) ([]item, bool) {
-	var content []item
+func getFileContent(word string, lemmasDir string) (lemma.Content, bool) {
+	var content lemma.Content
 	exists := util.GetJSONWhenFileMayNotExist(
 		lemmasDir+"/"+word+".json",
 		&content,
