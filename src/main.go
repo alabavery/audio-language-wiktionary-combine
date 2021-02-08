@@ -8,23 +8,6 @@ import (
 	"audio-language/wiktionary/combine/word"
 )
 
-type datapoint struct {
-	name string
-	data map[string]interface{}
-}
-
-type partOfSpeechData struct {
-	name        string
-	lemma       string
-	definitions []string
-	datapoints  []datapoint
-}
-
-type wordData struct {
-	word          string
-	partsOfSpeech []partOfSpeechData
-}
-
 func main() {
 	flagVals := getflags.GetFlags()
 	// get list of words from original word list file
@@ -38,9 +21,9 @@ func main() {
 	definitions := definition.GetDefinitions(*flatLemmas, flagVals.Definitions)
 
 	for _, word := range wordList {
-		// get lemmas from the lemmas directory
+		// inefficient to go and get lemmas again, but we are in no rush
 		lemmaData := lemma.NewLemmasWrapper(word, flagVals.Lemmas)
 		o := output.GetOutputWrapper(lemmaData, definitions)
-		o.Save(flagVals.Target, flagVals.DryRun)
+		output.Save(o, flagVals.Target, flagVals.DryRun)
 	}
 }

@@ -10,11 +10,11 @@ import (
 	"github.com/ninetypercentlanguage/word-utils/combined"
 )
 
-// Wrapper has the final content
+// Wrapper around the final output
 type Wrapper struct {
-	Word       string
 	Content    combined.Content
 	HasContent bool
+	Word       string
 }
 
 // GetOutputWrapper provides an OutputWrapper
@@ -58,10 +58,11 @@ func GetOutputWrapper(
 	return wrapper
 }
 
-// Save the Content of the output
+// Save the the output
 func (o *Wrapper) Save(targetDirectory string, dryRun bool) {
 	if o.HasContent {
-		out, err := json.Marshal(o.Content)
+		var content combined.Content = o.Content
+		out, err := json.Marshal(content)
 		if err != nil {
 			panic("Could not marshal json")
 		}
