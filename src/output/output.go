@@ -6,22 +6,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+
+	"github.com/ninetypercentlanguage/word-utils/combined"
 )
-
-type lemmaItem struct {
-	Word        string   `json:"word"`
-	Definitions []string `json:"definitions"`
-}
-
-type contentItem struct {
-	PartOfSpeech string      `json:"part_of_speech"`
-	Lemmas       []lemmaItem `json:"lemmas"`
-}
 
 // Wrapper has the final content
 type Wrapper struct {
 	Word       string
-	Content    []contentItem
+	Content    combined.Content
 	HasContent bool
 }
 
@@ -33,19 +25,19 @@ func GetOutputWrapper(
 	wrapper := &Wrapper{
 		Word:       lemmaData.Word,
 		HasContent: false,
-		Content:    []contentItem{},
+		Content:    combined.Content{},
 	}
 	// the lemmaData should only not have content if the initial parse of the page was unsuccessful, or
 	// if the initial page download was unsuccessful
 	if lemmaData.HasContent {
 		for _, partOfSpeechData := range lemmaData.Content {
-			ci := &contentItem{
+			ci := &combined.ContentItem{
 				PartOfSpeech: partOfSpeechData.PartOfSpeech,
-				Lemmas:       []lemmaItem{},
+				Lemmas:       []combined.LemmaItem{},
 			}
 			// look up the definition(s) for each lemma of the word
 			for _, lemma := range partOfSpeechData.Lemmas {
-				li := lemmaItem{
+				li := combined.LemmaItem{
 					Word:        lemma,
 					Definitions: []string{},
 				}
